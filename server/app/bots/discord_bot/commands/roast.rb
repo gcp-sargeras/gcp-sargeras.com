@@ -9,7 +9,7 @@ module DiscordBot
 
       def subscribe
         @bot.command :roast do |_event|
-          DiscordBot::Assets::Roasts.sample
+          Assets::Roasts.sample
         end
       end
     end
