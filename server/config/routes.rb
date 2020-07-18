@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  namespace :warcraft_logs do
+    resources :reports
+  end
   resources :users, only: [:index, :show]
-  resources :warcraftlogs, only: [:index]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
