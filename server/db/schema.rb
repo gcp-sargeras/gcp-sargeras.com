@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_18_192027) do
+ActiveRecord::Schema.define(version: 2020_07_18_214253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,17 @@ ActiveRecord::Schema.define(version: 2020_07_18_192027) do
     t.string "server"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "warcraft_logs_reports", id: :string, force: :cascade do |t|
+    t.string "owner"
+    t.date "start"
+    t.date "end"
+    t.string "zone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["id"], name: "index_warcraft_logs_reports_on_id"
+    t.index ["owner"], name: "index_warcraft_logs_reports_on_owner"
   end
 
 end
