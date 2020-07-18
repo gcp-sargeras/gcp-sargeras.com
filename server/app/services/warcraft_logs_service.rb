@@ -8,6 +8,8 @@ class WarcraftLogsService
     @required_args = [{ query: { api_key: ENV['WARCRAFT_LOGS_KEY'] } }]
   end
 
+  protected
+
   def get(path, *args, &block)
     @client.get(path, *args, *@required_args, &block)
   end
