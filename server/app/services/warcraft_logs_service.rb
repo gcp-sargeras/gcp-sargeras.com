@@ -8,6 +8,9 @@ class WarcraftLogsService
     @required_args = [{ query: { api_key: ENV['WARCRAFT_LOGS_KEY'] } }]
   end
 
+  def load_reports
+  end
+
   protected
 
   def get(path, *args, &block)
@@ -18,5 +21,3 @@ class WarcraftLogsService
     @client.post(path, *args, *@required_args, &block)
   end
 end
-
-# test.get('report/fights/2yAGX4kLnZmBx1Tt', query: {api_key: '1eba4e395450959d14254621589becfc'})
