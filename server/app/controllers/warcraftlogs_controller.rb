@@ -1,2 +1,0 @@
-class WarcraftlogsController < ApplicationController
-end
