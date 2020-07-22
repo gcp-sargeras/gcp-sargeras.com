@@ -1,8 +1,8 @@
 module WarcraftLogs
-  class Date < ActiveRecord::Type::Date
+  class DateTime < ActiveRecord::Type::DateTime
     def cast_value(value)
       if value.class == Integer
-        ::Date.strptime(value.to_s, '%Q')
+        ::DateTime.strptime(value.to_s, '%Q')
       else
         super(value)
       end

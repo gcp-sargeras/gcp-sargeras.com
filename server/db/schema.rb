@@ -35,11 +35,11 @@ ActiveRecord::Schema.define(version: 2020_07_18_214253) do
   create_table "warcraft_logs_reports", id: :string, force: :cascade do |t|
     t.string "title"
     t.string "owner"
-    t.date "start"
-    t.date "end"
+    t.datetime "start"
+    t.datetime "end"
     t.string "zone"
-    t.datetime "created_at", precision: 6, default: "2020-07-22 22:01:40", null: false
-    t.datetime "updated_at", precision: 6, default: "2020-07-22 22:01:40", null: false
+    t.datetime "created_at", precision: 6, default: "2020-07-22 22:32:54", null: false
+    t.datetime "updated_at", precision: 6, default: "2020-07-22 22:32:54", null: false
     t.index ["id"], name: "index_warcraft_logs_reports_on_id"
     t.index ["owner"], name: "index_warcraft_logs_reports_on_owner"
   end

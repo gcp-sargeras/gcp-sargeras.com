@@ -4,8 +4,8 @@ class CreateWarcraftLogsReports < ActiveRecord::Migration[6.0]
       t.string :id, primary_key: true, index: true
       t.string :title
       t.string :owner, index: true
-      t.date :start
-      t.date :end
+      t.timestamp :start
+      t.timestamp :end
       t.string :zone
 
       t.timestamps default: DateTime.now

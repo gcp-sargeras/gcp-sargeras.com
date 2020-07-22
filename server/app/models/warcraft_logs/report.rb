@@ -1,4 +1,4 @@
 class WarcraftLogs::Report < ApplicationRecord
-  attribute :start, WarcraftLogs::Date.new
-  attribute :end, WarcraftLogs::Date.new
+  attribute :start, WarcraftLogs::DateTime.new
+  attribute :end, WarcraftLogs::DateTime.new
 end
