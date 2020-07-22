@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 2020_07_18_214253) do
     t.date "start"
     t.date "end"
     t.string "zone"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", precision: 6, default: "2020-07-22 22:01:40", null: false
+    t.datetime "updated_at", precision: 6, default: "2020-07-22 22:01:40", null: false
     t.index ["id"], name: "index_warcraft_logs_reports_on_id"
     t.index ["owner"], name: "index_warcraft_logs_reports_on_owner"
   end
