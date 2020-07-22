@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_07_18_214253) do
   end
 
   create_table "warcraft_logs_reports", id: :string, force: :cascade do |t|
+    t.string "title"
     t.string "owner"
     t.date "start"
     t.date "end"
