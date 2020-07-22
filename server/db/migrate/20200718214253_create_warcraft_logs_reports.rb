@@ -8,7 +8,7 @@ class CreateWarcraftLogsReports < ActiveRecord::Migration[6.0]
       t.date :end
       t.string :zone
 
-      t.timestamps
+      t.timestamps default: DateTime.now
     end
   end
 end
