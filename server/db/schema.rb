@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_18_214253) do
+ActiveRecord::Schema.define(version: 2020_07_23_014122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,24 @@ ActiveRecord::Schema.define(version: 2020_07_18_214253) do
     t.string "server"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "warcraft_logs_fights", force: :cascade do |t|
+    t.bigint "warcraft_logs_reports_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer "boss"
+    t.string "name"
+    t.integer "size"
+    t.integer "difficulty"
+    t.boolean "kill"
+    t.integer "partial"
+    t.integer "bossPercentage"
+    t.integer "fightPercentage"
+    t.integer "lastPhaseForPercentageDisplay"
+    t.datetime "created_at", precision: 6, default: "2020-07-23 02:09:29", null: false
+    t.datetime "updated_at", precision: 6, default: "2020-07-23 02:09:29", null: false
+    t.index ["warcraft_logs_reports_id"], name: "index_warcraft_logs_fights_on_warcraft_logs_reports_id"
   end
 
   create_table "warcraft_logs_reports", id: :string, force: :cascade do |t|
