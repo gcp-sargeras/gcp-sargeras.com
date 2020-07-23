@@ -9,13 +9,17 @@ class WarcraftLogsService
   end
 
   def load_gcp_sargeras
-    fights = get_guild('Grand Central Parkway', 'Sargeras', 'US').body
+    reports = get_guild('Grand Central Parkway', 'Sargeras', 'US').body
 
-    WarcraftLogs::Report.insert_all(fights)
+    WarcraftLogs::Report.insert_all(reports)
   end
 
   def get_guild(name, server, region)
     get("reports/guild/#{ERB::Util.url_encode(name)}/#{server}/#{region}")
+  end
+
+  def get_fights(report_id)
+    get("report/fights/#{report_id}")
   end
 
   protected

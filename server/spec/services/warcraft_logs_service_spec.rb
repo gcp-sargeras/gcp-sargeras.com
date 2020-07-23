@@ -14,4 +14,12 @@ RSpec.describe WarcraftLogsService do
       expect(WarcraftLogs::Report.where(id: ids.rows[0][0])).to exist
     end
   end
+
+  describe '#get_fights(report_id)' do
+    it 'gets a fights information' do
+      id = described_class.new.load_gcp_sargeras.rows[0][0]
+
+      expect(described_class.new.get_fights(id).status).to eq(200)
+    end
+  end
 end
