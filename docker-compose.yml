@@ -5,3 +5,10 @@ services:
     environment: 
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - WARCRAFT_LOGS_KEY=${WARCRAFT_LOGS_KEY}
+  server:
+    build: ./server/
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - RAILS_ENV=${RAILS_ENV}
