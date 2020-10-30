@@ -4,7 +4,18 @@ services:
     build: ./discord_bot/
     environment: 
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+  sidekiq:
+    build: ./server/
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - RAILS_ENV=${RAILS_ENV}
+      - REDIS_URL=${REDIS_URL}
       - WARCRAFT_LOGS_KEY=${WARCRAFT_LOGS_KEY}
+    links:
+      - redis
+    command: 'sidekiq'
   server:
     build: ./server/
     environment:
@@ -12,3 +23,10 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - RAILS_ENV=${RAILS_ENV}
+      - REDIS_URL=${REDIS_URL}
+      - WARCRAFT_LOGS_KEY=${WARCRAFT_LOGS_KEY}
+    links:
+      - redis
+  redis:
+    image: redis
+     

@@ -30,6 +30,9 @@ gem 'rack-cors'
 # HTTP client
 gem 'httpclient'
 
+# Sidekiq!
+gem 'sidekiq'
+
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
