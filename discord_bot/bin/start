@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+require 'bundler/setup'
+require 'require_all'
+require_relative '../bot'
+
+Bundler.require(:default)
+
+DiscordBot::Bot.new.start

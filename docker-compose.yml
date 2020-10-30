@@ -1,0 +1,7 @@
+version: "3.8"
+services:
+  discord_bot:
+    build: ./discord_bot/
+    environment: 
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - WARCRAFT_LOGS_KEY=${WARCRAFT_LOGS_KEY}

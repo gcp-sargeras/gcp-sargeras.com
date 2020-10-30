@@ -1,0 +1,17 @@
+FROM ruby:2.7.1
+
+RUN gem install bundler
+
+RUN mkdir /bot
+
+WORKDIR /bot
+
+COPY ./Gemfile /bot/Gemfile
+
+RUN bundle install --without development test
+
+COPY . /bot
+
+RUN chmod +x /bot/bin/start
+
+ENTRYPOINT [ "/bot/bin/start" ]

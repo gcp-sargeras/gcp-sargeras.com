@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require_all './commands'
+require_all './assets'
 
 module DiscordBot
   class Bot
