@@ -6,7 +6,7 @@ class WarcraftLogs::Report < ApplicationRecord
     data = WarcraftLogsService.new.get_fights(id).body
 
     fights = data['fights'].map do |fight|
-      fight = fight.reject { |key, _| ['maps', 'id', 'originalBoss'].include?(key) }
+      fight = fight.reject { |key, _| ['maps', 'id', 'originalBoss', 'zoneID', 'zoneName', 'zoneDifficulty'].include?(key) }
 
       {
         'warcraft_logs_reports_id' => id,
