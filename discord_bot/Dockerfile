@@ -14,4 +14,7 @@ COPY . /bot
 
 RUN chmod +x /bot/bin/start
 
+RUN useradd bot
+USER bot
+
 ENTRYPOINT [ "/bot/bin/start" ]
