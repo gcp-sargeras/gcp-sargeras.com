@@ -1,5 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
+  namespace :simc do
+    resources :reports
+  end
   namespace :warcraft_logs do
     resources :reports, only: [:index]
     resources :fights, only: [:index]

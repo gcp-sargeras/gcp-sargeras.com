@@ -33,6 +33,8 @@ gem 'httpclient'
 # Sidekiq!
 gem 'sidekiq'
 
+gem 'discordrb'
+
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails'

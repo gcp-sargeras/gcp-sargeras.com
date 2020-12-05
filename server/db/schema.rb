@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_23_014122) do
+ActiveRecord::Schema.define(version: 2020_12_05_205637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "simc_reports", force: :cascade do |t|
+    t.string "character", null: false
+    t.string "server", default: "sargeras", null: false
+    t.string "region", default: "us", null: false
+    t.text "options"
+    t.text "html_report"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
@@ -45,8 +55,8 @@ ActiveRecord::Schema.define(version: 2020_07_23_014122) do
     t.integer "bossPercentage"
     t.integer "fightPercentage"
     t.integer "lastPhaseForPercentageDisplay"
-    t.datetime "created_at", precision: 6, default: "2020-07-23 02:29:04", null: false
-    t.datetime "updated_at", precision: 6, default: "2020-07-23 02:29:04", null: false
+    t.datetime "created_at", precision: 6, default: "2020-07-23 02:28:51", null: false
+    t.datetime "updated_at", precision: 6, default: "2020-07-23 02:28:51", null: false
     t.index ["warcraft_logs_reports_id"], name: "index_warcraft_logs_fights_on_warcraft_logs_reports_id"
   end
 
