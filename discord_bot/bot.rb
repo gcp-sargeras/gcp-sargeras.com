@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require_all './commands'
 require_all './assets'
+require 'dotenv/load'
 
 module DiscordBot
   class Bot
@@ -18,6 +19,7 @@ module DiscordBot
 
     def subscribe
       Commands::Roast.new(@bot).subscribe
+      Commands::Simc.new(@bot).subscribe
     end
   end
 end
