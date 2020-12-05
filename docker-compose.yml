@@ -13,9 +13,11 @@ services:
       - RAILS_ENV=${RAILS_ENV}
       - REDIS_URL=${REDIS_URL}
       - WARCRAFT_LOGS_KEY=${WARCRAFT_LOGS_KEY}
+      - BLIZZARD_API_KEY=${BLIZZARD_API_KEY}
     links:
       - redis
     command: 'sidekiq'
+    privileged: true
   server:
     build: ./server/
     environment:
@@ -25,8 +27,11 @@ services:
       - RAILS_ENV=${RAILS_ENV}
       - REDIS_URL=${REDIS_URL}
       - WARCRAFT_LOGS_KEY=${WARCRAFT_LOGS_KEY}
+      - BLIZZARD_API_KEY=${BLIZZARD_API_KEY}
     links:
       - redis
   redis:
     image: redis
+    expose:
+      - "6379"
      
