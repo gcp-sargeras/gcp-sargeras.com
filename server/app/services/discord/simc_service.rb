@@ -7,11 +7,7 @@ class Discord::SimcService
 
   def run_sim
     start_time = Time.now
-    _stdout, stderr, status = Open3.capture3(
-      "#{Rails.root.join('bin', 'simc')} armory=#{report.region},"\
-      "#{report.server},#{report.character} html=#{html_file_location} "\
-      "json2=#{json_file_location}"
-    )
+    _stdout, stderr, status = call_simc
 
     Discordrb::API::Channel.delete_message("Bot #{ENV['DISCORD_TOKEN']}", ENV['DISCORD_CHANNEL'], report.message_id) if report.message_id
 
@@ -23,6 +19,14 @@ class Discord::SimcService
   end
 
   private
+
+  def call_simc
+    Open3.capture3(
+      "#{Rails.root.join('bin', 'simc')} armory=#{report.region},"\
+      "#{report.server},#{report.character} html=#{html_file_location} "\
+      "json2=#{json_file_location}"
+    )
+  end
 
   def completion(total_time)
     update_files
