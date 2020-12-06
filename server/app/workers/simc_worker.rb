@@ -30,7 +30,9 @@ class SimcWorker
           **DPS**: #{report.json_report["sim"]["statistics"]["raid_dps"]["mean"].to_i}
           View report at: #{ENV['APP_URL']}/simc/reports/#{report.id}
 
-          Total Simulation Time: #{(end_time - start_time).round(2)}s
+          Real Simulation Time: #{(end_time - start_time).round(2)}s
+          Cpu Simulation Time: #{report.json_report["sim"]["statistics"]["elapsed_cpu_seconds"].round(2)}s
+          Processed using #{report.json_report["sim"]["options"]["threads"]} threads
         MESSAGE
         .tap { |string| string << "\nDEBUG: #{report.as_json(except: [:json_report, :html_report]).to_s}" if Rails.env.development? }
       )
