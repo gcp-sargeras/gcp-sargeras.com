@@ -9,6 +9,8 @@ class SimcWorker
       "#{report.server},#{report.character} html=#{Rails.root.join('reports')}/#{report.id}.html"
     )
 
+    Discordrb::API::Channel.delete_message("Bot #{ENV['DISCORD_TOKEN']}", ENV['DISCORD_CHANNEL'], report.message_id)
+
     if status == 0
       report.update(html_report: File.read("#{Rails.root.join('reports')}/#{report.id}.html"))
       File.delete("#{Rails.root.join('reports')}/#{report.id}.html")
@@ -20,6 +22,7 @@ class SimcWorker
           Done simulating #{report.server}/#{report.character}
           View report at: #{ENV['APP_URL']}/simc/reports/#{report.id}
         MESSAGE
+        .tap { |string| string << "\nDEBUG: #{report.as_json(except: [:text_report, :html_report]).to_s}" if Rails.env.development? }
       )
     else
       Discordrb::Bot.new(token: ENV['DISCORD_TOKEN']).send_message(
@@ -28,6 +31,7 @@ class SimcWorker
           An error has occured while simming #{report.server}/#{report.character}:
           #{stderr}
         MESSAGE
+        .tap { |string| string << "\nDEBUG: #{report.as_json(except: [:text_report, :html_report]).to_s}" if Rails.env.development? }
       )
     end
   end
