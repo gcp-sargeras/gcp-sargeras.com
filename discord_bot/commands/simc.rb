@@ -8,10 +8,11 @@ module DiscordBot
       end
 
       def subscribe
-        @bot.command :sim do |_event, *args|
-          RestClient.post("#{ENV['APP_URL']}/simc/reports", { report: { character: args.first } }, headers={})
+        @bot.command :sim do |event, *args|
+          resp = event.respond("Starting sim for #{args.first}")
+          RestClient.post("#{ENV['APP_URL']}/simc/reports", { report: { character: args.first, message_id: resp.id } }, headers={})
 
-          "Starting sim for #{args.first}"
+          nil
         end
       end
     end
