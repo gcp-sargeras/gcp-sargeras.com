@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_004954) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "message_id"
-    t.text "json_report"
+    t.jsonb "json_report", default: "{}", null: false
   end
 
   create_table "users", force: :cascade do |t|
