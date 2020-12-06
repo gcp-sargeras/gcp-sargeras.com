@@ -18,7 +18,7 @@ RUN bundle install --jobs $(nproc)
 
 COPY . /home/rails
 
-COPY --from=cooljacob204/simc /app/SimulationCraft/simc /home/rails/bin/simc
+COPY --from=gcpsargeras/simc /app/SimulationCraft/simc /home/rails/bin/simc
 
 RUN chown -R rails:rails /home/rails
 
