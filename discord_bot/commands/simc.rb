@@ -10,7 +10,11 @@ module DiscordBot
       def subscribe
         @bot.command :sim do |event, *args|
           resp = event.respond("Starting sim for #{args.first}")
-          RestClient.post("#{ENV['APP_URL']}/simc/reports", { report: { character: args.first, message_id: resp.id } }, headers={})
+          RestClient.post(
+            "#{ENV['APP_URL']}/simc/reports",
+            { report: { character: args.first, message_id: resp.id } },
+            { Authorization: "Bearer #{ENV['APP_TOKEN']}" }
+          )
 
           nil
         end

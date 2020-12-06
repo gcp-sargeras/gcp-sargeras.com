@@ -1,5 +1,7 @@
 class Simc::ReportsController < ApplicationController
   before_action :set_report, only: :show
+  skip_before_action :authenticate, only: [:show]
+
   def show
     render html: @report.html_report.html_safe
   end
