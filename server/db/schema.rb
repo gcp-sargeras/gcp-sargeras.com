@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 2020_12_06_155407) do
     t.integer "bossPercentage"
     t.integer "fightPercentage"
     t.integer "lastPhaseForPercentageDisplay"
-    t.datetime "created_at", precision: 6, default: "2020-07-23 02:28:51", null: false
-    t.datetime "updated_at", precision: 6, default: "2020-07-23 02:28:51", null: false
+    t.datetime "created_at", precision: 6, default: "2020-12-06 17:57:00", null: false
+    t.datetime "updated_at", precision: 6, default: "2020-12-06 17:57:00", null: false
     t.index ["warcraft_logs_reports_id"], name: "index_warcraft_logs_fights_on_warcraft_logs_reports_id"
   end
 
@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(version: 2020_12_06_155407) do
     t.datetime "start"
     t.datetime "end"
     t.string "zone"
-    t.datetime "created_at", precision: 6, default: "2020-07-22 22:32:54", null: false
-    t.datetime "updated_at", precision: 6, default: "2020-07-22 22:32:54", null: false
+    t.datetime "created_at", precision: 6, default: "2020-12-06 17:57:00", null: false
+    t.datetime "updated_at", precision: 6, default: "2020-12-06 17:57:00", null: false
     t.index ["id"], name: "index_warcraft_logs_reports_on_id"
     t.index ["owner"], name: "index_warcraft_logs_reports_on_owner"
   end
