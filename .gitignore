@@ -3,3 +3,4 @@ server/.vscode/settings.json
 docker-compose.override.yml
 apikey.txt
 server/bin/simc
+.vscode
