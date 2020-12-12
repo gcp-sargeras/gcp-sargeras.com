@@ -11,16 +11,19 @@ module DiscordBot
         @bot.command :sim do |event, *args|
           resp = event.respond("Starting sim for #{args.first}")
 
-          catch_error(event, resp) do
-            RestClient.post(
-              "#{ENV['APP_URL']}/simc/reports",
-              { report: report(args.first, resp.id),
-                requester: requester(event) },
-              { Authorization: "Bearer #{ENV['APP_TOKEN']}" }
-            )
-          end
+          queue_report(event, args, resp)
 
           nil
+        end
+      end
+
+      def queue_report(event, args, resp)
+        catch_error(event, resp) do
+          RestClient.post(
+            "#{ENV['APP_URL']}/simc/reports",
+            { report: report(args.first, resp.id, event) },
+            { Authorization: "Bearer #{ENV['APP_TOKEN']}" }
+          )
         end
       end
 
@@ -36,12 +39,9 @@ module DiscordBot
         raise e
       end
 
-      def report(character, message_id)
-        { character: character, message_id: message_id }
-      end
-
-      def requester(event)
-        { user: { id: event.user.id }, message_id: event.message.id }
+      def report(character, message_id, event)
+        { character: character, message_id: message_id, requester_id: event.user.id,
+          requester_message_id: event.message.id }
       end
     end
   end
