@@ -38,6 +38,7 @@ class Discord::SimcService
   def completion_message(total_time)
     <<~MESSAGE
       __Character: #{report.server}/#{report.character}__
+      **Requester:** <@#{report.requester_id}>
       **DPS**: #{report.json_report["sim"]["statistics"]["raid_dps"]["mean"].to_i}
       View report at: #{ENV['APP_URL']}/simc/reports/#{report.id}
 
