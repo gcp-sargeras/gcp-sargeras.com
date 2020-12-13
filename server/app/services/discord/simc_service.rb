@@ -47,9 +47,10 @@ class Discord::SimcService
   def completion_message(total_time)
     <<~MESSAGE
       __Character: #{report.server}/#{report.character}__
-      **DPS**: #{report.json_report['sim']['statistics']['raid_dps']['mean'].to_i}
-      **Requester:** <@#{report.requester_id}>
+      Requester: <@#{report.requester_id}>
       View report at: #{ENV['APP_URL']}/simc/reports/#{report.id}
+
+      #{dps_message}
 
       SIMC version: #{report.json_report['version']}
       Real Simulation Time: #{total_time.round(2)}s
@@ -57,6 +58,19 @@ class Discord::SimcService
       Processed using #{report.json_report['sim']['options']['threads']} threads
     MESSAGE
       .tap { |string| string << "\nDEBUG: #{report.as_json(except: [:json_report, :html_report]).to_s}" if Rails.env.development? }
+  end
+
+  def dps_message
+    if report.json_report['sim']['players'].size < 2
+      return "**DPS**: #{report.json_report['sim']['statistics']['raid_dps']['mean'].to_i}"
+    end
+
+    <<~MESSAGE
+      __DPS__
+      #{report.json_report['sim']['players'].map do |player|
+        "**Set - #{player['name']}**: #{player['collected_data']['dps']['mean'].to_i}"
+      end.join("\n")}
+    MESSAGE
   end
 
   def update_files
