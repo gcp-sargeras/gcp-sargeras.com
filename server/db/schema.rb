@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_021328) do
+ActiveRecord::Schema.define(version: 2020_12_13_041650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_12_13_021328) do
     t.bigint "requester_message_id"
     t.text "custom_string"
     t.bigint "requester_channel_id"
+    t.string "requester_attachment_url"
   end
 
   create_table "tokens", force: :cascade do |t|
