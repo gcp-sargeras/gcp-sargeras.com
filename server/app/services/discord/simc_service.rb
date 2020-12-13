@@ -38,12 +38,13 @@ class Discord::SimcService
   def completion_message(total_time)
     <<~MESSAGE
       __Character: #{report.server}/#{report.character}__
-      **DPS**: #{report.json_report["sim"]["statistics"]["raid_dps"]["mean"].to_i}
+      **DPS**: #{report.json_report['sim']['statistics']['raid_dps']['mean'].to_i}
       View report at: #{ENV['APP_URL']}/simc/reports/#{report.id}
 
+      SIMC version: #{report.json_report['version']}
       Real Simulation Time: #{total_time.round(2)}s
-      Cpu Simulation Time: #{report.json_report["sim"]["statistics"]["elapsed_cpu_seconds"].round(2)}s
-      Processed using #{report.json_report["sim"]["options"]["threads"]} threads
+      Cpu Simulation Time: #{report.json_report['sim']['statistics']['elapsed_cpu_seconds'].round(2)}s
+      Processed using #{report.json_report['sim']['options']['threads']} threads
     MESSAGE
       .tap { |string| string << "\nDEBUG: #{report.as_json(except: [:json_report, :html_report]).to_s}" if Rails.env.development? }
   end
