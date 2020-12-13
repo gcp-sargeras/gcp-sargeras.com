@@ -17,17 +17,27 @@ class Simc::ReportsController < ApplicationController
 
   def create
     report = ::Simc::Report.create(report_params)
+    return head 400 if user_already_in_queue?
 
-    if params[:html_report].present?
-      Report.save_html_report(params[:html_report])
-    else
-      jid = SimcWorker.perform_async(report.id)
-    end
+    jid = SimcWorker.perform_async(report.id)
 
     render json: { data: report.as_json, jid: jid }
   end
 
   private
+
+  def user_already_in_queue?
+    ::Simc::Report.where(id: current_ids_in_queue,
+                 requester_id: params[:report][:requester_id]).present?
+  end
+
+  def current_ids_in_queue
+    [
+      *Sidekiq::Queue.new('default').filter { |w| w.klass == 'SimcWorker' }.map { |w| w.args.first },
+      *Sidekiq::Workers.new.filter { |_, _, w| w['queue'] == 'default' && w['payload']['class'] == 'SimcWorker' }
+                       .map { |_, _, w| w['payload']['args'].first }
+    ]
+  end
 
   def set_report
     @report = ::Simc::Report.find(params[:id])

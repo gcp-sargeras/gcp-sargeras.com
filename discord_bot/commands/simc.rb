@@ -11,7 +11,7 @@ module DiscordBot
         @bot.command :sim do |event, *args|
           return 'please enter character name first' if args.first =~ /```/
 
-          resp = event.respond("Starting sim for #{args.first}")
+          resp = event.respond("adding #{args.first} to queue")
 
           queue_report(event, args, resp)
 
