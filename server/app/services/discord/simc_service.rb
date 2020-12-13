@@ -92,6 +92,7 @@ class Discord::SimcService
   end
 
   def custom_string_location
-    "#{Rails.root.join('tmp')}/simc/#{report.id}.simc"
+    Dir.mkdir(Rails.root.join('tmp', 'simc').to_s) unless Dir.exist?(Rails.root.join('tmp', 'simc').to_s)
+    "#{Rails.root.join('tmp', 'simc')}/#{report.id}.simc"
   end
 end
