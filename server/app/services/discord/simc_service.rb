@@ -24,6 +24,12 @@ class Discord::SimcService
     error(stderr)
   end
 
+  def send_message(total_time)
+    Discordrb.split_message(completion_message(total_time)).each do |chunk|
+      @bot.send_message(ENV['DISCORD_CHANNEL'], chunk)
+    end
+  end
+
   private
 
   def simc_source
@@ -63,7 +69,7 @@ class Discord::SimcService
   def completion(total_time)
     update_files
 
-    @bot.send_message(ENV['DISCORD_CHANNEL'], completion_message(total_time))
+    send_message(total_time)
   end
 
   # should be converted to markdown with erb in the future
@@ -80,11 +86,10 @@ class Discord::SimcService
       Cpu Simulation Time: #{report.json_report['sim']['statistics']['elapsed_cpu_seconds'].round(2)}s
       Processed using #{report.json_report['sim']['options']['threads']} threads
     MESSAGE
-      .tap { |string| string << "\nDEBUG: #{report.as_json(except: [:json_report, :html_report])}" if Rails.env.development? }
   end
 
   def dps_message
-    if report.json_report['sim']['players'].size < 2
+    if report.json_report['sim']['players'].size < 2 && !report.json_report['sim']['profilesets']
       return "**DPS**: #{report.json_report['sim']['statistics']['raid_dps']['mean'].to_i}"
     end
 
@@ -93,6 +98,9 @@ class Discord::SimcService
       #{report.json_report['sim']['players'].map do |player|
         "**Set - #{player['name']}**: #{player['collected_data']['dps']['mean'].to_i}"
       end.join("\n")}
+      #{if report.json_report['sim']['profilesets']
+          report.json_report['sim']['profilesets']['results'].map { |r| "**Set - #{r['name']}**: #{r['mean'].to_i}" }.join("\n")
+        end}
     MESSAGE
   end
 
