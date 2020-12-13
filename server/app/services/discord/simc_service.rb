@@ -80,7 +80,7 @@ class Discord::SimcService
       Cpu Simulation Time: #{report.json_report['sim']['statistics']['elapsed_cpu_seconds'].round(2)}s
       Processed using #{report.json_report['sim']['options']['threads']} threads
     MESSAGE
-      .tap { |string| string << "\nDEBUG: #{report.as_json(except: [:json_report, :html_report]).to_s}" if Rails.env.development? }
+      .tap { |string| string << "\nDEBUG: #{report.as_json(except: [:json_report, :html_report])}" if Rails.env.development? }
   end
 
   def dps_message
