@@ -20,11 +20,20 @@ class Discord::SimcService
 
   private
 
+  def simc_source
+    if report.custom_string.present?
+      File.write(custom_string_location, report.custom_string)
+
+      custom_string_location
+    else
+      "armory=#{report.region},#{report.server},#{report.character}"
+    end
+  end
+
   def call_simc
     Open3.capture3(
-      "#{Rails.root.join('bin', 'simc')} armory=#{report.region},"\
-      "#{report.server},#{report.character} html=#{html_file_location} "\
-      "json2=#{json_file_location}"
+      "#{Rails.root.join('bin', 'simc')} #{simc_source} "\
+      "html=#{html_file_location} json2=#{json_file_location}"
     )
   end
 
@@ -58,6 +67,7 @@ class Discord::SimcService
   def delete_files
     File.delete(html_file_location)
     File.delete(json_file_location)
+    File.delete(custom_string_location) if report.custom_string.present?
   end
 
   def error(stderr)
@@ -79,5 +89,9 @@ class Discord::SimcService
 
   def json_file_location
     "#{Rails.root.join('reports')}/#{report.id}.json"
+  end
+
+  def custom_string_location
+    "#{Rails.root.join('tmp')}/#{report.id}.simc"
   end
 end

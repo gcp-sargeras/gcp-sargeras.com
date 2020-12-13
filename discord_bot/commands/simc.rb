@@ -9,6 +9,8 @@ module DiscordBot
 
       def subscribe
         @bot.command :sim do |event, *args|
+          return 'please enter character name first' if args.first =~ /```/
+
           resp = event.respond("Starting sim for #{args.first}")
 
           queue_report(event, args, resp)
@@ -40,8 +42,10 @@ module DiscordBot
       end
 
       def report(character, message_id, event)
+        custom_string = /```(.|\s|\n)+```/.match(event.message.content)&.to_s&.delete('```')&.strip
+
         { character: character, message_id: message_id, requester_id: event.user.id,
-          requester_message_id: event.message.id }
+          requester_message_id: event.message.id, custom_string: custom_string }
       end
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_12_225113) do
+ActiveRecord::Schema.define(version: 2020_12_13_001947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_12_12_225113) do
     t.jsonb "json_report", default: "{}", null: false
     t.bigint "requester_id"
     t.bigint "requester_message_id"
+    t.text "custom_string"
   end
 
   create_table "tokens", force: :cascade do |t|
