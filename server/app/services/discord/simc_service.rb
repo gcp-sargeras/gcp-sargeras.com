@@ -7,9 +7,15 @@ class Discord::SimcService
 
   def run_sim
     start_time = Time.now
+
+    Discordrb::API::Channel.edit_message(
+      "Bot #{ENV['DISCORD_TOKEN']}", report.requester_channel_id, report.message_id,
+      "Starting sim for #{report.character}"
+    )
+
     _stdout, stderr, status = call_simc
 
-    Discordrb::API::Channel.delete_message("Bot #{ENV['DISCORD_TOKEN']}", ENV['DISCORD_CHANNEL'], report.message_id) if report.message_id
+    Discordrb::API::Channel.delete_message("Bot #{ENV['DISCORD_TOKEN']}", report.requester_channel_id, report.message_id)
 
     total_time = Time.now - start_time
 
