@@ -45,7 +45,7 @@ module DiscordBot
         custom_string = /```(.|\s|\n)+```/.match(event.message.content)&.to_s&.delete('```')&.strip
 
         { character: character, message_id: message_id, requester_id: event.user.id,
-          requester_message_id: event.message.id, custom_string: custom_string }
+          requester_message_id: event.message.id, requester_channel_id: event.message.channel.id, custom_string: custom_string }
       end
     end
   end

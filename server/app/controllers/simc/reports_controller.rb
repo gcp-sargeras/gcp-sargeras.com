@@ -35,6 +35,6 @@ class Simc::ReportsController < ApplicationController
 
   def report_params
     params.require(:report).permit(:character, :server, :region, :html_report, :json_report, :message_id, :requester_id,
-                                   :requester_message_id, :custom_string)
+                                   :requester_message_id, :requester_channel_id, :custom_string)
   end
 end
