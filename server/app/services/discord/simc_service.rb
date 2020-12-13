@@ -92,6 +92,6 @@ class Discord::SimcService
   end
 
   def custom_string_location
-    "#{Rails.root.join('tmp')}/#{report.id}.simc"
+    "#{Rails.root.join('tmp')}/simc/#{report.id}.simc"
   end
 end
