@@ -2,8 +2,17 @@ class Simc::ReportsController < ApplicationController
   before_action :set_report, only: :show
   skip_before_action :authenticate, only: [:show]
 
+  include ActionController::MimeResponds
+
   def show
-    render html: @report.html_report.html_safe
+    respond_to do |format|
+      format.html do
+        render html: @report.html_report.html_safe
+      end
+      format.json do
+        render json: @report.json_report, except: :html_report
+      end
+    end
   end
 
   def create
