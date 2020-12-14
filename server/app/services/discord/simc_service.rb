@@ -26,7 +26,7 @@ class Discord::SimcService
 
   def send_message(total_time)
     Discordrb.split_message(completion_message(total_time)).each do |chunk|
-      @bot.send_message(ENV['DISCORD_CHANNEL'], chunk)
+      @bot.send_message(report.requester_channel_id, chunk)
     end
   end
 
