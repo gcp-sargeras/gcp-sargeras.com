@@ -62,7 +62,7 @@ class Discord::SimcService
     Open3.capture3(
       "#{Rails.root.join('bin', 'simc')} #{simc_source} "\
       "html=#{html_file_location} json2=#{json_file_location} " \
-      'threads=8'
+      "threads=#{ENV.fetch('SIMC_THREADS', 4)}}"
     )
   end
 
