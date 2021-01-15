@@ -117,7 +117,7 @@ class Discord::SimcService
   end
 
   def error(stderr)
-    @bot.send_message(ENV['DISCORD_CHANNEL'], error_message(stderr))
+    @bot.send_message(report.requester_channel_id, error_message(stderr))
     delete_files
   end
 
