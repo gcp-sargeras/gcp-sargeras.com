@@ -15,8 +15,6 @@ module DiscordBot
 
           queue_report(event, args, resp)
 
-          resp.edit "#{args.first} added to queue"
-
           nil
         end
       end
