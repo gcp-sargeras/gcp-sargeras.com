@@ -19,6 +19,11 @@ class Simc::ReportsController < ApplicationController
     report = ::Simc::Report.create(report_params)
     return head 400 if user_already_in_queue?
 
+    Discordrb::API::Channel.edit_message(
+      "Bot #{ENV['DISCORD_TOKEN']}", report.requester_channel_id, report.message_id,
+      "#{report.character} added to queue"
+    )
+
     jid = SimcWorker.perform_async(report.id)
 
     render json: { data: report.as_json, jid: jid }
