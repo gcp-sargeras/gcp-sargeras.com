@@ -85,6 +85,7 @@ class Discord::SimcService
       Real Simulation Time: #{total_time.round(2)}s
       Cpu Simulation Time: #{report.json_report['sim']['statistics']['elapsed_cpu_seconds'].round(2)}s
       Processed using #{report.json_report['sim']['options']['threads']} threads
+      Processed on #{ENV['SERVER_NAME']}
     MESSAGE
   end
 
