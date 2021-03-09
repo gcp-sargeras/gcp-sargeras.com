@@ -13,6 +13,7 @@ RUN adduser --home /home/rails -s /bin/bash --disabled-password rails
 WORKDIR /home/rails
 
 COPY ./Gemfile /home/rails/Gemfile
+COPY ./Gemfile.lock /home/rails/Gemfile.lock
 
 RUN bundle install --jobs $(nproc)
 
