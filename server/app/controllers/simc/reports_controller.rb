@@ -1,8 +1,12 @@
 class Simc::ReportsController < ApplicationController
   before_action :set_report, only: :show
-  skip_before_action :authenticate, only: [:show]
+  skip_before_action :authenticate, only: [:show, :index]
 
   include ActionController::MimeResponds
+
+  def index
+    render json: ::Simc::Report.select(:id, :character).all
+  end
 
   def show
     respond_to do |format|
@@ -10,7 +14,7 @@ class Simc::ReportsController < ApplicationController
         render html: @report.html_report.html_safe
       end
       format.json do
-        render json: @report.json_report, except: :html_report
+        render json: @report, except: :html_report
       end
     end
   end
