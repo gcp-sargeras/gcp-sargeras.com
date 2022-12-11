@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Discord API wrapper
-gem 'discordrb'
+gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
 gem 'dotenv'
 gem 'require_all'
 gem 'rest-client'

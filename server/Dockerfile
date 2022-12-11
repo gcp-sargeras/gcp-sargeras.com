@@ -22,6 +22,7 @@ COPY . /home/rails
 COPY --from=gcpsargeras/simc /app/SimulationCraft/simc /home/rails/bin/simc
 
 RUN chown -R rails:rails /home/rails
+RUN chown -R rails:rails /usr/local/bundle
 
 USER rails
 

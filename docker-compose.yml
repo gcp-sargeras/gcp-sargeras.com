@@ -4,6 +4,10 @@ services:
     build: ./discord_bot/
     environment: 
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - APP_URL=${APP_URL}
+      - APP_TOKEN=${APP_TOKEN}
+    volumes:
+      - ./discord_bot:/home/bot
   sidekiq:
     build: ./server/
     environment:
@@ -14,10 +18,14 @@ services:
       - REDIS_URL=${REDIS_URL}
       - WARCRAFT_LOGS_KEY=${WARCRAFT_LOGS_KEY}
       - BLIZZARD_API_KEY=${BLIZZARD_API_KEY}
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
     links:
       - redis
+      - postgres
     command: 'sidekiq'
     privileged: true
+    volumes:
+      - ./server:/home/rails
   server:
     build: ./server/
     environment:
@@ -28,10 +36,26 @@ services:
       - REDIS_URL=${REDIS_URL}
       - WARCRAFT_LOGS_KEY=${WARCRAFT_LOGS_KEY}
       - BLIZZARD_API_KEY=${BLIZZARD_API_KEY}
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
     links:
       - redis
+      - postgres
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./server:/home/rails
+  postgres:
+    image: postgres:15.1
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
   redis:
     image: redis
     expose:
       - "6379"
-     
+volumes:
+  postgres_data:
