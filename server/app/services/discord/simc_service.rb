@@ -60,7 +60,7 @@ class Discord::SimcService
 
   def call_simc
     Open3.capture3(
-      "#{Rails.root.join('bin', 'simc')} #{simc_source} "\
+      "simc #{simc_source} "\
       "html=#{html_file_location} json2=#{json_file_location} " \
       "threads=#{ENV.fetch('SIMC_THREADS', 4)}}"
     )
@@ -118,7 +118,7 @@ class Discord::SimcService
   end
 
   def error(stderr)
-    @bot.send_message(report.requester_channel_id, error_message(stderr))
+    @bot.send_message(report.requester_channel_id, error_message(stderr)[..1999])
     delete_files
   end
 

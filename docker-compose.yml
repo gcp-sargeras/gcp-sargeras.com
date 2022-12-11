@@ -19,6 +19,7 @@ services:
       - WARCRAFT_LOGS_KEY=${WARCRAFT_LOGS_KEY}
       - BLIZZARD_API_KEY=${BLIZZARD_API_KEY}
       - DISCORD_TOKEN=${DISCORD_TOKEN}
+      - APP_URL=${APP_URL}
     links:
       - redis
       - postgres
@@ -26,6 +27,7 @@ services:
     privileged: true
     volumes:
       - ./server:/home/rails
+      - ./server/apikey.txt:/usr/local/bin/apikey.txt
   server:
     build: ./server/
     environment:
