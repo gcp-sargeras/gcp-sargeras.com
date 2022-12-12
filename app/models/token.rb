@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Token < ApplicationRecord
   validates :app, uniqueness: true
   before_save :generate_token

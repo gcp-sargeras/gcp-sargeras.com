@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'sidekiq/web'
 Rails.application.routes.draw do
   namespace :simc do
-    resources :reports
+    resources :reports, only: [:show]
   end
   namespace :warcraft_logs do
     resources :reports, only: [:index]

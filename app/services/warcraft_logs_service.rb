@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WarcraftLogsService
   def initialize
     @client = JSONClient.new(

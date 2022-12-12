@@ -35,7 +35,7 @@ module DiscordBot
 
       def catch_error(event, resp)
         yield
-      rescue => e
+      rescue StandardError => e
         resp.delete
         event.respond(
           "#{event.user.mention} An error has occurred while trying to place you in queue, please try again later."
@@ -46,14 +46,14 @@ module DiscordBot
       def create_report!(character, message_id, event)
         custom_string = /```(.|\s|\n)+```/.match(event.message.content)&.to_s&.delete('```')&.strip
 
-        ::Simc::Report.create(character: character, message_id: message_id, requester_id: event.user.id,
-          requester_message_id: event.message.id, requester_channel_id: event.message.channel.id,
-          requester_attachment_url: event.message.attachments&.first&.url, custom_string: custom_string)
+        ::Simc::Report.create(character:, message_id:, requester_id: event.user.id,
+                              requester_message_id: event.message.id, requester_channel_id: event.message.channel.id,
+                              requester_attachment_url: event.message.attachments&.first&.url, custom_string:)
       end
 
       def user_already_in_queue?(requester_id)
         ::Simc::Report.where(id: current_ids_in_queue,
-                             requester_id: requester_id).present?
+                             requester_id:).present?
       end
 
       def current_ids_in_queue

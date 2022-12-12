@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class SimcService
   attr_reader :report
+
   def initialize(report)
     @report = report
     @bot = Discordrb::Bot.new(token: ENV['DISCORD_TOKEN'])
@@ -15,11 +18,12 @@ class SimcService
 
     _stdout, stderr, status = call_simc
 
-    Discordrb::API::Channel.delete_message("Bot #{ENV['DISCORD_TOKEN']}", report.requester_channel_id, report.message_id)
+    Discordrb::API::Channel.delete_message("Bot #{ENV['DISCORD_TOKEN']}", report.requester_channel_id,
+                                           report.message_id)
 
     total_time = Time.now - start_time
 
-    return completion(total_time) if status == 0
+    return completion(total_time) if status.to_i.zero?
 
     error(stderr)
   end
@@ -127,7 +131,12 @@ class SimcService
       An error has occured while simming #{report.server}/#{report.character}:
       #{stderr}
     MESSAGE
-      .tap { |string| string << "\nDEBUG: #{report.as_json(except: [:json_report, :html_report]).to_s}" if Rails.env.development? }
+      .tap do |string|
+      if Rails.env.development?
+        string << "\nDEBUG: #{report.as_json(except: %i[json_report
+                                                        html_report])}"
+      end
+    end
   end
 
   def html_file_location
