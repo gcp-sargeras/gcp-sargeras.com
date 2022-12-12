@@ -1,7 +1,0 @@
-#!/bin/bash
-
-source /etc/profile > /dev/null 2>&1
-source ~/.profile > /dev/null 2>&1
-rvm 2.7.2@gcp-sargeras > /dev/null 2>&1
-
-bundle exec rubocop $@

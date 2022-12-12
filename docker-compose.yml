@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   server:
-    build: ./server/
+    build: ./
     environment:
       - DB_HOST=${DB_HOST}
       - DB_USER=${DB_USER}
@@ -17,9 +17,9 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./server:/home/rails
+      - ./:/home/rails
   discord_bot:
-    build: ./server/
+    build: ./
     command: 'bin/start_discord_bot'
     environment:
       - DB_HOST=${DB_HOST}
@@ -32,9 +32,9 @@ services:
       - DISCORD_TOKEN=${DISCORD_TOKEN}
       - APP_URL=${APP_URL}
     volumes:
-      - ./server:/home/rails
+      - ./:/home/rails
   sidekiq:
-    build: ./server/
+    build: ./
     environment:
       - DB_HOST=${DB_HOST}
       - DB_USER=${DB_USER}
@@ -51,8 +51,8 @@ services:
     command: 'sidekiq'
     privileged: true
     volumes:
-      - ./server:/home/rails
-      - ./server/apikey.txt:/usr/local/bin/apikey.txt
+      - ./:/home/rails
+      - .//apikey.txt:/usr/local/bin/apikey.txt
   postgres:
     image: postgres:15.1
     environment:
