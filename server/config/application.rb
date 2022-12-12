@@ -41,5 +41,7 @@ module Server
     config.middleware.use config.session_store, config.session_options
 
     config.hosts.clear
+
+    config.autoload_paths << "#{root}/app/bots"
   end
 end

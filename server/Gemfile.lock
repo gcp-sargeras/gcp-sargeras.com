@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/shardlab/discordrb.git
+  revision: 413cd095d41706814179a257129e24560afdbc9d
+  branch: main
+  specs:
+    discordrb (3.4.2)
+      discordrb-webhooks (~> 3.4.2)
+      ffi (>= 1.9.24)
+      opus-ruby
+      rest-client (>= 2.0.0)
+      websocket-client-simple (>= 0.3.0)
+    discordrb-webhooks (3.4.2)
+      rest-client (>= 2.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -76,14 +90,6 @@ GEM
     crass (1.0.6)
     date (3.3.1)
     diff-lcs (1.5.0)
-    discordrb (3.4.0)
-      discordrb-webhooks (~> 3.3.0)
-      ffi (>= 1.9.24)
-      opus-ruby
-      rest-client (>= 2.0.0)
-      websocket-client-simple (>= 0.3.0)
-    discordrb-webhooks (3.3.0)
-      rest-client (>= 2.1.0.rc1)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.8.1)
@@ -258,7 +264,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.4.2)
-  discordrb
+  discordrb!
   dotenv-rails
   factory_bot
   httpclient
@@ -280,4 +286,4 @@ RUBY VERSION
    ruby 3.1.3p185
 
 BUNDLED WITH
-   2.1.4
+   2.3.26

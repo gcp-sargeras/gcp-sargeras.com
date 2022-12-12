@@ -1,7 +1,4 @@
 # frozen_string_literal: true
-require_all './commands'
-require_all './assets'
-require 'dotenv/load'
 
 module DiscordBot
   class Bot

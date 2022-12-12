@@ -4,3 +4,6 @@ docker-compose.override.yml
 apikey.txt
 server/bin/simc
 .vscode
+.ash_history
+.irb_history
+pry_history

@@ -1,4 +1,4 @@
-class Discord::SimcService
+class SimcService
   attr_reader :report
   def initialize(report)
     @report = report

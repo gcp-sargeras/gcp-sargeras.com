@@ -33,7 +33,7 @@ gem 'httpclient'
 # Sidekiq!
 gem 'sidekiq'
 
-gem 'discordrb'
+gem 'discordrb', github: 'shardlab/discordrb', branch: 'main'
 
 group :development, :test do
   gem 'pry'
