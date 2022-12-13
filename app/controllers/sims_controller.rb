@@ -1,0 +1,2 @@
+class SimsController < ApplicationController
+end

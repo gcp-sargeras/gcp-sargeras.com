@@ -7,9 +7,7 @@ module Simc
 
     def show
       respond_to do |format|
-        format.html do
-          render html: @report.html_report.html_safe
-        end
+        format.html
         format.json do
           render json: @report.json_report, except: :html_report
         end
