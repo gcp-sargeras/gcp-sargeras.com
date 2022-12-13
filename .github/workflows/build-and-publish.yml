@@ -1,9 +1,8 @@
 name: Build and Publish
-
-  # run it on push to the default repository branch
-  push:
-    branches: [cicd]
-  pull_request:
+  on:
+    push:
+      branches: [cicd]
+    pull_request:
 
 jobs:
   build-and-push-docker-image:
