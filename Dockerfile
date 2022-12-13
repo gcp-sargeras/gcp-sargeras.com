@@ -19,7 +19,7 @@ RUN bundle install --jobs $(nproc)
 
 COPY --chown=rails:rails . /home/rails
 
-COPY --chown=rails:rails --from=gcpsargeras/simc /app/SimulationCraft/simc /usr/local/bin/simc
+COPY --chown=rails:rails --from=simulationcraftorg/simc:latest /app/SimulationCraft/simc /usr/local/bin/simc
 RUN chmod +x /usr/local/bin/simc
 
 RUN chown -R rails:rails /usr/local/bundle
