@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_11_234829) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_19_061239) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,4 +85,28 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_234829) do
     t.index ["owner"], name: "index_warcraft_logs_reports_on_owner"
   end
 
+  create_table "wow_characters", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "wow_server_id", null: false
+    t.bigint "wow_region_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["wow_region_id"], name: "index_wow_characters_on_wow_region_id"
+    t.index ["wow_server_id"], name: "index_wow_characters_on_wow_server_id"
+  end
+
+  create_table "wow_regions", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "wow_servers", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "wow_characters", "wow_regions"
+  add_foreign_key "wow_characters", "wow_servers"
 end

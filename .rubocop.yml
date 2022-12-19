@@ -1,0 +1,4 @@
+# ignores migrations
+AllCops:
+  Exclude:
+    - 'db/migrate/**/*'
