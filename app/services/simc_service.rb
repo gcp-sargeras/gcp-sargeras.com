@@ -13,7 +13,7 @@ class SimcService
 
     Discordrb::API::Channel.edit_message(
       "Bot #{ENV['DISCORD_TOKEN']}", report.requester_channel_id, report.message_id,
-      "Starting sim for #{report.character}"
+      "Sim for #{report.character.name} has begun"
     )
 
     _stdout, stderr, status = call_simc
@@ -59,7 +59,7 @@ class SimcService
   end
 
   def armory_souce
-    "armory=#{report.region},#{report.server},#{report.character}"
+    "armory=#{report.character.region.name},#{report.character.server.name},#{report.character.name}"
   end
 
   def call_simc
@@ -79,7 +79,7 @@ class SimcService
   # should be converted to markdown with erb in the future
   def completion_message(total_time)
     <<~MESSAGE
-      __Character: #{report.server}/#{report.character}__
+      __Character: #{report.character.server.name}/#{report.character.name}__
       Requester: <@#{report.requester_id}>
       View report at: #{ENV['APP_URL']}/simc/reports/#{report.id}
 
@@ -128,7 +128,7 @@ class SimcService
 
   def error_message(stderr)
     <<~MESSAGE
-      An error has occured while simming #{report.server}/#{report.character}:
+      An error has occured while simming #{report.character.server.name}/#{report.character.name}:
       #{stderr}
     MESSAGE
       .tap do |string|

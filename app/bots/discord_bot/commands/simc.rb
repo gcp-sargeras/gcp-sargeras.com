@@ -2,6 +2,7 @@
 
 module DiscordBot
   module Commands
+    # command for simulating a character
     class Simc
       def initialize(bot)
         @bot = bot
@@ -22,9 +23,10 @@ module DiscordBot
       def queue_report(event, args, resp)
         return already_in_queue_message(resp, event) if user_already_in_queue?(event.user.id)
 
-        report = create_report!(args.first, resp.id, event)
-        "#{args.first} added to queue"
-        jid = SimcWorker.perform_async(report.id)
+        report = create_report!(character(args.first), resp.id, event)
+        resp.edit("#{args.first} added to queue")
+
+        SimcWorker.perform_async(report.id)
       end
 
       protected
@@ -41,6 +43,14 @@ module DiscordBot
           "#{event.user.mention} An error has occurred while trying to place you in queue, please try again later."
         )
         raise e
+      end
+
+      def character(name)
+        @character ||= begin
+          region = Wow::Region.find_by(name: 'us')
+          server = Wow::Server.find_by(name: 'sargeras')
+          Wow::Character.find_or_create_by!(name: name, server: server, region: region)
+        end
       end
 
       def create_report!(character, message_id, event)
