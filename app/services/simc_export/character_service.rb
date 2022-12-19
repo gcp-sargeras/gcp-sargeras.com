@@ -38,7 +38,7 @@ module SimcExport
     end
 
     def classes
-      %w[death_knight demon_hunter druid hunter mage monk paladin priest rogue shaman warlock warrior]
+      %w[deathknight demonhunter druid hunter mage monk paladin priest rogue shaman warlock warrior]
     end
   end
 end

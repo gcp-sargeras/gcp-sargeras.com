@@ -26,7 +26,7 @@ module DiscordBot
         report = create_report!(character(args.first), resp.id, event)
         resp.edit("#{args.first} added to queue")
 
-        SimcWorker.perform_async(report.id)
+        DiscordReportSimcWorker.perform_async(report.id)
       end
 
       protected
