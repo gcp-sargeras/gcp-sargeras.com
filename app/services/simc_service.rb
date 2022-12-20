@@ -17,6 +17,8 @@ class SimcService < ApplicationService
     return completion if status.to_i.zero?
 
     error(stderr)
+  ensure
+    delete_files!
   end
 
   private
@@ -62,19 +64,16 @@ class SimcService < ApplicationService
   def update_report!
     report.update(html_report: File.read(html_file_location),
                   json_report: JSON.parse(File.read(json_file_location)))
-    delete_files!
   end
 
   def delete_files!
-    File.delete(html_file_location)
-    File.delete(json_file_location)
-    File.delete(custom_file_location) if report.custom_string.present?
+    File.delete(html_file_location) if File.exist?(html_file_location)
+    File.delete(json_file_location) if File.exist?(json_file_location)
+    File.delete(custom_file_location) if File.exist?(custom_file_location)
   end
 
-  def error(stderr)
-    delete_files!
-
-    raise SimulationError, stderr
+  def error(message)
+    raise SimulationError, message
   end
 
   def html_file_location

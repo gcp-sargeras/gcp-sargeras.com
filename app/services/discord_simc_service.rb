@@ -21,9 +21,9 @@ class DiscordSimcService < ApplicationService
 
     total_time = Time.now - start_time
 
-    send_message(total_time)
+    send_message(completion_message(total_time))
   rescue SimcService::SimulationError => e
-    error_message(e.message)
+    send_message(error_message(e.message))
   end
 
   private
@@ -40,9 +40,7 @@ class DiscordSimcService < ApplicationService
                                            report.message_id)
   end
 
-  def send_message(total_time)
-    message = completion_message(total_time)
-
+  def send_message(message)
     Discordrb.split_message(message).each do |chunk|
       @bot.send_message(report.requester_channel_id, chunk)
     end

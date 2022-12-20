@@ -14,7 +14,7 @@ module DiscordBot
 
           resp = event.respond("adding #{args.first} to queue")
 
-          queue_report(event, args, resp)
+          catch_error(event, resp) { queue_report(event, args, resp) }
 
           nil
         end
@@ -46,11 +46,9 @@ module DiscordBot
       end
 
       def character(name)
-        @character ||= begin
-          region = Wow::Region.find_by(name: 'us')
-          server = Wow::Server.find_by(name: 'sargeras')
-          Wow::Character.find_or_create_by!(name: name.downcase, server: server, region: region)
-        end
+        region = Wow::Region.find_by(name: 'us')
+        server = Wow::Server.find_by(name: 'sargeras')
+        Wow::Character.find_or_create_by!(name: name.downcase, server: server, region: region)
       end
 
       def create_report!(character, message_id, event)
