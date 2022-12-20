@@ -18,19 +18,19 @@ module SimcExport
     private
 
     def region
-      name = simc_export.match(/^region=(\w*)/).captures.first
+      name = simc_export.match(/^region=(\w*)\R/).captures.first
 
       @region ||= Wow::Region.find_or_create_by!(name: name)
     end
 
     def server
-      name = simc_export.match(/^server=(\w*)/).captures.first
+      name = simc_export.match(/^server=(\w*)\R/).captures.first
 
       @server ||= Wow::Server.find_or_create_by!(name: name)
     end
 
     def character_name_regex
-      /^(?:#{classes.join('|')})="([a-zA-Z\d]*)"$/
+      /^(?:#{classes.join('|')})="([a-zA-Z\d]*)"\R/
     end
 
     def character_name
