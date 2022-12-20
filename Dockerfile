@@ -5,7 +5,8 @@ RUN apk add --no-cache --update build-base \
   git \
   postgresql-dev \
   nodejs \
-  tzdata
+  tzdata \
+  vim
 
 RUN gem install bundler
 
