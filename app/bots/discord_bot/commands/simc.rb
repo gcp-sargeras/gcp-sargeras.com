@@ -49,7 +49,7 @@ module DiscordBot
         @character ||= begin
           region = Wow::Region.find_by(name: 'us')
           server = Wow::Server.find_by(name: 'sargeras')
-          Wow::Character.find_or_create_by!(name: name, server: server, region: region)
+          Wow::Character.find_or_create_by!(name: name.downcase, server: server, region: region)
         end
       end
 

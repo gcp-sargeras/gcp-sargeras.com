@@ -34,7 +34,7 @@ module SimcExport
     end
 
     def character_name
-      @character_name ||= simc_export.match(character_name_regex).captures.first
+      @character_name ||= simc_export.match(character_name_regex).captures.first.downcase
     end
 
     def classes
