@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :wow_server, class: 'Wow::Server' do
-    name { 'us' }
+    name { 'sargeras' }
   end
 end

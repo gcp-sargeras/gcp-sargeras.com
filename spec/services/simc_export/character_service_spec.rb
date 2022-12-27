@@ -31,7 +31,7 @@ RSpec.describe SimcExport::CharacterService do
     context 'existing character' do
       let!(:region) { create(:wow_region, name: 'us') }
       let!(:server) { create(:wow_server, name: 'sargeras') }
-      let!(:character) { create(:wow_character, name: 'Sorryforpull', server: server, region: region) }
+      let!(:character) { create(:wow_character, name: 'sorryforpull', server: server, region: region) }
 
       it 'returns the existing character' do
         expect { described_class.new(simc_export).call }.to_not(change { Wow::Character.count })

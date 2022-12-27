@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :wow_region, class: 'Wow::Region' do
-    name { 'sargeras' }
+    name { 'us' }
   end
 end
