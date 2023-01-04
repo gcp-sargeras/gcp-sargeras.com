@@ -27,4 +27,4 @@ RUN chown -R rails:rails /usr/local/bundle
 
 USER rails
 
-CMD [ "rails", "s", "-b", "0.0.0.0" ]
+CMD [ "ruby", "--jit", "bin/rails", "s", "-b", "0.0.0.0" ]
