@@ -1,0 +1,22 @@
+---
+name: Pronto
+on: [pull_request]
+
+jobs:
+  pronto:
+    if: ${{ !contains(github.actor, '[bot]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - run: |
+          git fetch --no-tags --prune --depth=50 origin +refs/heads/*:refs/remotes/origin/*
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+      - name: Setup pronto
+        run: gem install rubocop-rails pronto pronto-rubocop
+      - name: Run Pronto
+        run: >
+          PRONTO_PULL_REQUEST_ID="${{ github.event.pull_request.number }}"
+          PRONTO_GITHUB_ACCESS_TOKEN="${{ github.token }}"
+          pronto run -f github_status text -c origin/${{ github.base_ref }}
